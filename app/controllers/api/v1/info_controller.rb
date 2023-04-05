@@ -11,7 +11,7 @@ module Api
           }
         end
 
-        render json: @info
+        render_json @info
       end
     end
   end
