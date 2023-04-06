@@ -1,0 +1,2 @@
+class VariantAttribute < ApplicationRecord
+end
