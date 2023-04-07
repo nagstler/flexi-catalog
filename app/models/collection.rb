@@ -1,4 +1,5 @@
 class Collection < ApplicationRecord
-    has_and_belongs_to_many :products, join_table: "product_collections"
+    has_many :product_collections
+    has_many :products, through: :product_collections
 end
   
