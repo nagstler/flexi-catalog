@@ -39,24 +39,24 @@ namespace :db do
         t.string :erp_variant_reference_id # Add this field for the ERP variant reference ID
         t.timestamps
       end
-      
 
-      create_table :attributes do |t|
+      # Product & Variant Attributes
+      create_table :product_properties do |t|
         t.string :name
         t.text :description
         t.timestamps
       end
 
-      create_table :product_attributes do |t|
+      create_table :product_property_values do |t|
         t.integer :product_id
-        t.integer :attribute_id
+        t.integer :property_id
         t.string :value
         t.timestamps
       end
 
-      create_table :variant_attributes do |t|
+      create_table :variant_property_values do |t|
         t.integer :variant_id
-        t.integer :attribute_id
+        t.integer :property_id
         t.string :value
         t.timestamps
       end
