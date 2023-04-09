@@ -4,12 +4,7 @@
 
 
 
-
-
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/yourusername/FlexiCatalog)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-FlexiCatalog is a powerful and flexible headless e-commerce backend, inspired by [Solidus](https://solidus.io/). It enables developers to create customizable and scalable online stores using their favorite frontend frameworks.
+FlexiCatalog is a powerful and flexible headless e-commerce backend, inspired by [Shopify](https://shopify.com/). It enables developers to create customizable and scalable online stores using their favorite frontend frameworks.
 
 ## Table of Contents
 
