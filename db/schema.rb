@@ -10,16 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
-  create_table "attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   create_table "billing_addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "order_id"
+    t.bigint "order_id", null: false
     t.string "name"
     t.string "street"
     t.string "city"
@@ -28,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_billing_addresses_on_order_id"
   end
 
   create_table "brands", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -51,13 +45,16 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "inventory", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "variant_id"
+  create_table "inventories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "variant_id", null: false
     t.integer "quantity"
-    t.integer "location_id"
+    t.bigint "location_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_inventories_on_location_id"
+    t.index ["product_id"], name: "index_inventories_on_product_id"
+    t.index ["variant_id"], name: "index_inventories_on_variant_id"
   end
 
   create_table "locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -67,22 +64,27 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   end
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "product_id"
-    t.integer "variant_id"
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "variant_id", null: false
     t.integer "quantity"
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "price", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.index ["variant_id"], name: "index_order_items_on_variant_id"
   end
 
-  create_table "order_status_history", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "order_status_id"
+  create_table "order_status_histories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "order_status_id", null: false
     t.text "notes"
     t.datetime "status_changed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_status_histories_on_order_id"
+    t.index ["order_status_id"], name: "index_order_status_histories_on_order_status_id"
   end
 
   create_table "order_statuses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -94,65 +96,88 @@ ActiveRecord::Schema[7.0].define(version: 0) do
 
   create_table "orders", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "order_number"
-    t.decimal "total", precision: 10, scale: 2
-    t.decimal "shipping_cost", precision: 10, scale: 2
-    t.decimal "tax_amount", precision: 10, scale: 2
-    t.integer "shipping_method_id"
-    t.integer "tax_rate_id"
+    t.decimal "total", precision: 10
+    t.decimal "shipping_cost", precision: 10
+    t.decimal "tax_amount", precision: 10
+    t.bigint "shipping_method_id", null: false
+    t.bigint "tax_rate_id", null: false
     t.string "customer_name"
     t.string "customer_email"
     t.string "customer_phone"
     t.text "special_instructions"
     t.text "internal_notes"
     t.json "metadata"
-    t.integer "order_status_id"
+    t.bigint "order_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "product_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "attribute_id"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["shipping_method_id"], name: "index_orders_on_shipping_method_id"
+    t.index ["tax_rate_id"], name: "index_orders_on_tax_rate_id"
   end
 
   create_table "product_collections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "collection_id"
+    t.bigint "product_id", null: false
+    t.bigint "collection_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_product_collections_on_collection_id"
+    t.index ["product_id"], name: "index_product_collections_on_product_id"
   end
 
   create_table "product_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
+    t.bigint "product_id", null: false
     t.string "image_url"
     t.integer "position"
     t.string "alt_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_images_on_product_id"
+  end
+
+  create_table "product_properties", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_property_values", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "property_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_property_values_on_product_id"
+    t.index ["property_id"], name: "index_product_property_values_on_property_id"
   end
 
   create_table "product_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "tag_id"
+    t.bigint "product_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_tags_on_product_id"
+    t.index ["tag_id"], name: "index_product_tags_on_tag_id"
   end
 
   create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "category_id"
-    t.integer "brand_id"
-    t.decimal "price", precision: 10, scale: 2
-    t.decimal "compare_at_price", precision: 10, scale: 2
+    t.bigint "category_id", null: false
+    t.bigint "brand_id", null: false
+    t.decimal "price", precision: 10
+    t.decimal "compare_at_price", precision: 10
     t.string "sku"
     t.string "barcode"
     t.string "erp_product_reference_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
   end
 
   create_table "shipping_addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "order_id"
+    t.bigint "order_id", null: false
     t.string "name"
     t.string "street"
     t.string "city"
@@ -161,20 +186,23 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_shipping_addresses_on_order_id"
   end
 
   create_table "shipping_methods", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.integer "zone_id"
+    t.bigint "zone_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["zone_id"], name: "index_shipping_methods_on_zone_id"
   end
 
   create_table "shipping_rates", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "shipping_method_id"
-    t.decimal "rate", precision: 10, scale: 2
+    t.bigint "shipping_method_id", null: false
+    t.decimal "rate", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["shipping_method_id"], name: "index_shipping_rates_on_shipping_method_id"
   end
 
   create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -190,47 +218,55 @@ ActiveRecord::Schema[7.0].define(version: 0) do
   end
 
   create_table "tax_rates", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "tax_category_id"
-    t.integer "zone_id"
-    t.decimal "rate", precision: 10, scale: 2
+    t.bigint "tax_category_id", null: false
+    t.bigint "zone_id", null: false
+    t.decimal "rate", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "variant_attributes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "variant_id"
-    t.integer "attribute_id"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["tax_category_id"], name: "index_tax_rates_on_tax_category_id"
+    t.index ["zone_id"], name: "index_tax_rates_on_zone_id"
   end
 
   create_table "variant_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "variant_id"
+    t.bigint "variant_id", null: false
     t.string "image_url"
     t.integer "position"
     t.string "alt_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["variant_id"], name: "index_variant_images_on_variant_id"
+  end
+
+  create_table "variant_property_values", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "variant_id", null: false
+    t.bigint "property_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_variant_property_values_on_property_id"
+    t.index ["variant_id"], name: "index_variant_property_values_on_variant_id"
   end
 
   create_table "variants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "product_id"
-    t.decimal "price", precision: 10, scale: 2
-    t.decimal "compare_at_price", precision: 10, scale: 2
+    t.bigint "product_id", null: false
+    t.decimal "price", precision: 10
+    t.decimal "compare_at_price", precision: 10
     t.string "sku"
     t.string "barcode"
     t.string "erp_variant_reference_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_variants_on_product_id"
   end
 
   create_table "zone_members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "zone_id"
-    t.integer "zoneable_id"
-    t.string "zoneable_type"
+    t.bigint "zone_id", null: false
+    t.string "zoneable_type", null: false
+    t.bigint "zoneable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["zone_id"], name: "index_zone_members_on_zone_id"
+    t.index ["zoneable_type", "zoneable_id"], name: "index_zone_members_on_zoneable"
   end
 
   create_table "zones", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -239,4 +275,35 @@ ActiveRecord::Schema[7.0].define(version: 0) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "billing_addresses", "orders"
+  add_foreign_key "inventories", "locations"
+  add_foreign_key "inventories", "products"
+  add_foreign_key "inventories", "variants"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "order_items", "variants"
+  add_foreign_key "order_status_histories", "order_statuses"
+  add_foreign_key "order_status_histories", "orders"
+  add_foreign_key "orders", "order_statuses"
+  add_foreign_key "orders", "shipping_methods"
+  add_foreign_key "orders", "tax_rates"
+  add_foreign_key "product_collections", "collections"
+  add_foreign_key "product_collections", "products"
+  add_foreign_key "product_images", "products"
+  add_foreign_key "product_property_values", "product_properties", column: "property_id"
+  add_foreign_key "product_property_values", "products"
+  add_foreign_key "product_tags", "products"
+  add_foreign_key "product_tags", "tags"
+  add_foreign_key "products", "brands"
+  add_foreign_key "products", "categories"
+  add_foreign_key "shipping_addresses", "orders"
+  add_foreign_key "shipping_methods", "zones"
+  add_foreign_key "shipping_rates", "shipping_methods"
+  add_foreign_key "tax_rates", "tax_categories"
+  add_foreign_key "tax_rates", "zones"
+  add_foreign_key "variant_images", "variants"
+  add_foreign_key "variant_property_values", "product_properties", column: "property_id"
+  add_foreign_key "variant_property_values", "variants"
+  add_foreign_key "variants", "products"
+  add_foreign_key "zone_members", "zones"
 end
