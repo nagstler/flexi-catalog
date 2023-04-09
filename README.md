@@ -1,4 +1,5 @@
 # README
+[![Rails CI](https://github.com/nagstler/flexi-catalog/actions/workflows/rails.yml/badge.svg?branch=main)](https://github.com/nagstler/flexi-catalog/actions/workflows/rails.yml)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
