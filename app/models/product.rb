@@ -9,6 +9,6 @@ class Product < ApplicationRecord
     has_many :tags, through: :product_tags
     has_many :product_collections
     has_many :collections, through: :product_collections
-    has_many :inventory_items
+    has_many :inventories
 end
   

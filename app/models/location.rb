@@ -1,4 +1,4 @@
 class Location < ApplicationRecord
-    has_many :inventory_items
+    has_many :inventories
 end
   
