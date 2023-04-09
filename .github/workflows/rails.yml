@@ -49,3 +49,8 @@ jobs:
         DB_HOST: 127.0.0.1
         DB_PORT: 3306
       run: bundle exec rails test
+
+    - name: Report coverage to Coveralls
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: bundle exec coveralls push
