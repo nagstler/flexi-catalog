@@ -7,4 +7,4 @@ test:
   password: password
   host: <%= ENV['DB_HOST'] %>
   port: <%= ENV['DB_PORT'] %>
-  database: your_project_test
+  database: flexi_catalog_test
