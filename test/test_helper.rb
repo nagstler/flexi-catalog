@@ -11,7 +11,7 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   require 'coveralls'
-  Coveralls.wear!('rails')
+  Coveralls.wear!
   
 
 end

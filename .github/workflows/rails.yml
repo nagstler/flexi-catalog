@@ -5,7 +5,9 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main, develop]
-
+env:
+  CI: true
+  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,7 +52,5 @@ jobs:
         DB_PORT: 3306
       run: bundle exec rails test
 
-    - name: Report coverage to Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      run: bundle exec coveralls push
+    - name: Run tests with code coverage
+      run: COVERAGE=true bundle exec rake test
