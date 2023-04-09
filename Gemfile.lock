@@ -68,11 +68,6 @@ GEM
       tzinfo (~> 2.0)
     builder (3.2.4)
     concurrent-ruby (1.2.2)
-    coveralls_reborn (0.27.0)
-      simplecov (~> 0.22.0)
-      term-ansicolor (~> 1.7)
-      thor (~> 1.2)
-      tins (~> 1.32)
     crass (1.0.6)
     date (3.3.3)
     debug (1.7.2)
@@ -154,13 +149,8 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sync (0.5.0)
-    term-ansicolor (1.7.1)
-      tins (~> 1.0)
     thor (1.2.1)
     timeout (0.3.2)
-    tins (1.32.1)
-      sync
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     websocket-driver (0.7.5)
@@ -172,12 +162,13 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
-  coveralls_reborn
   debug
   mysql2 (~> 0.5)
   oj
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.3)
+  simplecov
+  simplecov_json_formatter
   tzinfo-data
 
 RUBY VERSION

@@ -30,8 +30,10 @@ group :development do
 end
 
 group :test do
-  gem "coveralls_reborn"
+  gem 'simplecov', require: false
+  gem 'simplecov_json_formatter'
 end
+
 
 
 
