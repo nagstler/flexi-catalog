@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   create_table "billing_addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "order_id", null: false
+    t.bigint "order_id"
     t.string "name"
     t.string "street"
     t.string "city"
@@ -46,10 +46,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "inventories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "variant_id", null: false
+    t.bigint "product_id"
+    t.bigint "variant_id"
     t.integer "quantity"
-    t.bigint "location_id", null: false
+    t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_inventories_on_location_id"
@@ -64,9 +64,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "order_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.bigint "variant_id", null: false
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.bigint "variant_id"
     t.integer "quantity"
     t.decimal "price", precision: 10
     t.datetime "created_at", null: false
@@ -77,8 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "order_status_histories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "order_status_id", null: false
+    t.bigint "order_id"
+    t.bigint "order_status_id"
     t.text "notes"
     t.datetime "status_changed_at"
     t.datetime "created_at", null: false
@@ -99,15 +99,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
     t.decimal "total", precision: 10
     t.decimal "shipping_cost", precision: 10
     t.decimal "tax_amount", precision: 10
-    t.bigint "shipping_method_id", null: false
-    t.bigint "tax_rate_id", null: false
+    t.bigint "shipping_method_id"
+    t.bigint "tax_rate_id"
     t.string "customer_name"
     t.string "customer_email"
     t.string "customer_phone"
     t.text "special_instructions"
     t.text "internal_notes"
     t.json "metadata"
-    t.bigint "order_status_id", null: false
+    t.bigint "order_status_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
@@ -116,8 +116,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "product_collections", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "collection_id", null: false
+    t.bigint "product_id"
+    t.bigint "collection_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["collection_id"], name: "index_product_collections_on_collection_id"
@@ -125,7 +125,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "product_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
+    t.bigint "product_id"
     t.string "image_url"
     t.integer "position"
     t.string "alt_text"
@@ -142,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "product_property_values", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
+    t.bigint "product_id"
     t.bigint "property_id"
     t.string "value"
     t.datetime "created_at", null: false
@@ -152,8 +152,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "product_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.bigint "tag_id", null: false
+    t.bigint "product_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_product_tags_on_product_id"
@@ -163,8 +163,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   create_table "products", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.bigint "category_id", null: false
-    t.bigint "brand_id", null: false
+    t.bigint "category_id"
+    t.bigint "brand_id"
     t.decimal "price", precision: 10
     t.decimal "compare_at_price", precision: 10
     t.string "sku"
@@ -177,7 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "shipping_addresses", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "order_id", null: false
+    t.bigint "order_id"
     t.string "name"
     t.string "street"
     t.string "city"
@@ -191,14 +191,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
 
   create_table "shipping_methods", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.bigint "zone_id", null: false
+    t.bigint "zone_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["zone_id"], name: "index_shipping_methods_on_zone_id"
   end
 
   create_table "shipping_rates", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "shipping_method_id", null: false
+    t.bigint "shipping_method_id"
     t.decimal "rate", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -218,8 +218,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "tax_rates", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "tax_category_id", null: false
-    t.bigint "zone_id", null: false
+    t.bigint "tax_category_id"
+    t.bigint "zone_id"
     t.decimal "rate", precision: 10
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -228,7 +228,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "variant_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "variant_id", null: false
+    t.bigint "variant_id"
     t.string "image_url"
     t.integer "position"
     t.string "alt_text"
@@ -238,7 +238,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "variant_property_values", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "variant_id", null: false
+    t.bigint "variant_id"
     t.bigint "property_id"
     t.string "value"
     t.datetime "created_at", null: false
@@ -248,7 +248,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "variants", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "product_id", null: false
+    t.bigint "product_id"
     t.decimal "price", precision: 10
     t.decimal "compare_at_price", precision: 10
     t.string "sku"
@@ -260,9 +260,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_09_021150) do
   end
 
   create_table "zone_members", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "zone_id", null: false
-    t.string "zoneable_type", null: false
-    t.bigint "zoneable_id", null: false
+    t.bigint "zone_id"
+    t.string "zoneable_type"
+    t.bigint "zoneable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["zone_id"], name: "index_zone_members_on_zone_id"
