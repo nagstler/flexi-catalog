@@ -48,7 +48,7 @@ jobs:
         RAILS_ENV: test
         DB_HOST: 127.0.0.1
         DB_PORT: 3306
-      run: bundle exec rake test
+      run: COVERAGE=true bundle exec rake test
 
     - name: Install Code Climate Test Reporter
       run: |
