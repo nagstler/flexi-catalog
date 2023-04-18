@@ -10,5 +10,10 @@ class Product < ApplicationRecord
     has_many :product_collections
     has_many :collections, through: :product_collections
     has_many :inventories
-end
+  
+    validates :name, presence: true
+    validates :category, presence: true
+    validates :brand, presence: true
+    validates :description, presence: true, length: { minimum: 10, maximum: 1000 }
+  end
   
