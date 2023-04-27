@@ -36,6 +36,7 @@ module FlexiCatalog
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_support.json_encoder = :oj
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}')]
 
   end
 end
