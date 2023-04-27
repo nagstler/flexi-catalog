@@ -54,10 +54,11 @@ jobs:
       run: |
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
         chmod +x ./cc-test-reporter
-
+      working-directory: ${{ github.workspace }}
     - name: Push coverage data to Code Climate
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       run: |
         ./cc-test-reporter before-build
         ./cc-test-reporter after-build --exit-code $?
+      working-directory: ${{ github.workspace }}

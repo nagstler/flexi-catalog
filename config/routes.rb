@@ -9,5 +9,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # Include separate route files
+  draw :categories_routes
   
 end
